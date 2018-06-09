@@ -1,3 +1,5 @@
+verilog work "seconds_clock.v"
 verilog work "dac_adapter.v"
-verilog work "dac_adapter_test.v"
+verilog work "main.v"
+verilog work "main_test.v"
 verilog work "/opt/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v"

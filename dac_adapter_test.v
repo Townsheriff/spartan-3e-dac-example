@@ -6,7 +6,8 @@ module dac_adapter_test;
 	reg SPI_MISO;
 	reg CLOCK;
 	reg RESET;
-
+	reg [11:0]BITS;
+	
 	// Outputs
 	wire SPI_MOSI;
 	wire SPI_SCK;
@@ -21,6 +22,7 @@ module dac_adapter_test;
 	dac_adapter uut (
 		.CLOCK(CLOCK),
 		.RESET(RESET),
+		.BITS(BITS),
 
 		.SPI_SCK(SPI_SCK), 
 		.SPI_MISO(SPI_MISO),
@@ -38,6 +40,7 @@ module dac_adapter_test;
 		SPI_MISO = 0;
 		RESET = 0;
 		CLOCK = 0;
+		BITS = 4'b1111;
 	end
       
 	always begin

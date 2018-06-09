@@ -4,14 +4,14 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 0.00 secs
+Total REAL time to Xst completion: 1.00 secs
 Total CPU time to Xst completion: 0.06 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 0.00 secs
+Total REAL time to Xst completion: 1.00 secs
 Total CPU time to Xst completion: 0.06 secs
  
 --> 
@@ -137,8 +137,8 @@ Analyzing module <seconds_clock> in library <work>.
 Module <seconds_clock> is correct for synthesis.
  
 Analyzing module <dac_adapter> in library <work>.
-INFO:Xst:1432 - Contents of array <BITS> may be accessed with a negative index, causing simulation mismatch.
-INFO:Xst:1433 - Contents of array <BITS> may be accessed with an index that exceeds the array size. This could cause simulation mismatch.
+INFO:Xst:1432 - Contents of array <INTERNAL_BITS> may be accessed with a negative index, causing simulation mismatch.
+INFO:Xst:1433 - Contents of array <INTERNAL_BITS> may be accessed with an index that exceeds the array size. This could cause simulation mismatch.
 Module <dac_adapter> is correct for synthesis.
  
 
@@ -160,7 +160,7 @@ Unit <seconds_clock> synthesized.
 
 Synthesizing Unit <dac_adapter>.
     Related source file is "dac_adapter.v".
-WARNING:Xst:1870 - Variable <BITS> is used but never assigned. Tied to value 10000000001100111111111111110001.
+WARNING:Xst:1870 - Variable <BASE_BITS> is used but never assigned. Tied to value 10000000001100110000000000000001.
     Found finite state machine <FSM_0> for signal <INTERNAL_STATE>.
     -----------------------------------------------------------------------
     | States             | 6                                              |
@@ -175,49 +175,64 @@ WARNING:Xst:1870 - Variable <BITS> is used but never assigned. Tied to value 100
     | Encoding           | automatic                                      |
     | Implementation     | LUT                                            |
     -----------------------------------------------------------------------
-    Found 32x1-bit ROM for signal <$varindex0000> created at line 52.
-    Found 32-bit subtractor for signal <COND_3$sub0000> created at line 52.
+    Found 1-bit 32-to-1 multiplexer for signal <$varindex0000> created at line 54.
+    Found 32-bit subtractor for signal <COND_4$sub0000> created at line 54.
     Found 32-bit register for signal <CURRENT_BIT>.
+    Found 32-bit register for signal <INTERNAL_BITS>.
     Found 8-bit register for signal <INTERNAL_CHECK>.
-    Found 33-bit comparator greatequal for signal <INTERNAL_CHECK_0$cmp_ge0000> created at line 63.
-    Found 33-bit comparator less for signal <INTERNAL_CHECK_0$cmp_lt0000> created at line 63.
+    Found 33-bit comparator greatequal for signal <INTERNAL_CHECK_0$cmp_ge0000> created at line 65.
+    Found 33-bit comparator less for signal <INTERNAL_CHECK_0$cmp_lt0000> created at line 65.
     Found 1-bit register for signal <INTERNAL_DAC_CLR>.
     Found 1-bit register for signal <INTERNAL_DAC_CS>.
     Found 1-bit register for signal <INTERNAL_SPI_MOSI>.
     Found 1-bit register for signal <INTERNAL_SPI_SCK>.
-    Found 33-bit comparator greater for signal <INTERNAL_STATE$cmp_gt0000> created at line 57.
+    Found 33-bit comparator greater for signal <INTERNAL_STATE$cmp_gt0000> created at line 59.
     Summary:
 	inferred   1 Finite State Machine(s).
-	inferred   1 ROM(s).
-	inferred  44 D-type flip-flop(s).
+	inferred  76 D-type flip-flop(s).
 	inferred   1 Adder/Subtractor(s).
 	inferred   3 Comparator(s).
+	inferred   1 Multiplexer(s).
 Unit <dac_adapter> synthesized.
 
 
 Synthesizing Unit <main>.
     Related source file is "main.v".
+WARNING:Xst:1870 - Variable <STEP> is used but never assigned. Tied to value 00000000000000000000000001100100.
 WARNING:Xst:653 - Signal <RESET_DAC> is used but never assigned. This sourceless signal will be automatically connected to value 0.
+    Found 33-bit adder for signal <$sub0000> created at line 49.
+    Found 12-bit register for signal <BITS>.
+    Found 1-bit register for signal <TREND>.
+    Found 33-bit comparator greater for signal <TREND$cmp_gt0000> created at line 49.
+    Found 33-bit comparator less for signal <TREND$cmp_lt0000> created at line 51.
+    Summary:
+	inferred  13 D-type flip-flop(s).
+	inferred   2 Adder/Subtractor(s).
+	inferred   2 Comparator(s).
 Unit <main> synthesized.
 
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
 
 =========================================================================
 HDL Synthesis Report
 
 Macro Statistics
-# ROMs                                                 : 1
- 32x1-bit ROM                                          : 1
-# Adders/Subtractors                                   : 1
+# Adders/Subtractors                                   : 3
+ 12-bit addsub                                         : 1
  32-bit subtractor                                     : 1
+ 33-bit adder                                          : 1
 # Counters                                             : 1
  32-bit up counter                                     : 1
-# Registers                                            : 14
- 1-bit register                                        : 13
- 32-bit register                                       : 1
-# Comparators                                          : 3
+# Registers                                            : 17
+ 1-bit register                                        : 14
+ 12-bit register                                       : 1
+ 32-bit register                                       : 2
+# Comparators                                          : 5
  33-bit comparator greatequal                          : 1
- 33-bit comparator greater                             : 1
- 33-bit comparator less                                : 1
+ 33-bit comparator greater                             : 2
+ 33-bit comparator less                                : 2
+# Multiplexers                                         : 1
+ 1-bit 32-to-1 multiplexer                             : 1
 
 =========================================================================
 
@@ -237,30 +252,66 @@ Optimizing FSM <send/INTERNAL_STATE/FSM> on signal <INTERNAL_STATE[1:6]> with on
  00101 | 010000
  00110 | 100000
 -------------------
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_1> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_2> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_3> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_18> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_19> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_22> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_23> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_24> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_25> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_26> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_27> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_28> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_29> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_30> has a constant value of 0 in block <send>. This FF/Latch will be trimmed during the optimization process.
+
+Synthesizing (advanced) Unit <main>.
+The following registers are absorbed into accumulator <BITS>: 1 register on signal <BITS>.
+Unit <main> synthesized (advanced).
 
 =========================================================================
 Advanced HDL Synthesis Report
 
 Macro Statistics
 # FSMs                                                 : 1
-# ROMs                                                 : 1
- 32x1-bit ROM                                          : 1
-# Adders/Subtractors                                   : 1
+# Adders/Subtractors                                   : 3
+ 12-bit addsub                                         : 1
  32-bit subtractor                                     : 1
+ 33-bit adder                                          : 1
 # Counters                                             : 1
  32-bit up counter                                     : 1
-# Registers                                            : 45
- Flip-Flops                                            : 45
-# Comparators                                          : 3
+# Accumulators                                         : 1
+ 12-bit updown accumulator                             : 1
+# Registers                                            : 78
+ Flip-Flops                                            : 78
+# Comparators                                          : 5
  33-bit comparator greatequal                          : 1
- 33-bit comparator greater                             : 1
- 33-bit comparator less                                : 1
+ 33-bit comparator greater                             : 2
+ 33-bit comparator less                                : 2
+# Multiplexers                                         : 1
+ 1-bit 32-to-1 multiplexer                             : 1
 
 =========================================================================
 
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
+WARNING:Xst:1293 - FF/Latch <INTERNAL_BITS_1> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_2> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_3> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_18> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_19> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_22> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_23> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_24> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_25> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_26> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_27> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_28> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_29> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <INTERNAL_BITS_30> has a constant value of 0 in block <dac_adapter>. This FF/Latch will be trimmed during the optimization process.
 
 Optimizing unit <main> ...
 
@@ -268,7 +319,7 @@ Optimizing unit <dac_adapter> ...
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block main, actual ratio is 1.
+Found area constraint ratio of 100 (+ 5) on block main, actual ratio is 2.
 
 Final Macro Processing ...
 
@@ -276,8 +327,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 83
- Flip-Flops                                            : 83
+# Registers                                            : 114
+ Flip-Flops                                            : 114
 
 =========================================================================
 
@@ -306,23 +357,25 @@ Design Statistics
 # IOs                              : 14
 
 Cell Usage :
-# BELS                             : 322
+# BELS                             : 434
 #      GND                         : 1
-#      INV                         : 36
+#      INV                         : 37
 #      LUT1                        : 33
-#      LUT2                        : 6
+#      LUT2                        : 32
 #      LUT2_L                      : 2
-#      LUT3                        : 3
-#      LUT3_D                      : 1
-#      LUT4                        : 76
+#      LUT3                        : 22
+#      LUT4                        : 94
 #      LUT4_D                      : 1
-#      LUT4_L                      : 1
-#      MUXCY                       : 97
+#      MUXCY                       : 119
+#      MUXF5                       : 5
+#      MUXF6                       : 1
 #      VCC                         : 1
-#      XORCY                       : 64
-# FlipFlops/Latches                : 83
-#      FDE                         : 43
+#      XORCY                       : 86
+# FlipFlops/Latches                : 114
+#      FD                          : 12
+#      FDE                         : 61
 #      FDR                         : 36
+#      FDRE                        : 1
 #      FDRS                        : 2
 #      FDS                         : 2
 # Clock Buffers                    : 2
@@ -338,9 +391,9 @@ Device utilization summary:
 
 Selected Device : 3s500efg320-4 
 
- Number of Slices:                       88  out of   4656     1%  
- Number of Slice Flip Flops:             83  out of   9312     0%  
- Number of 4 input LUTs:                159  out of   9312     1%  
+ Number of Slices:                      122  out of   4656     2%  
+ Number of Slice Flip Flops:            114  out of   9312     1%  
+ Number of 4 input LUTs:                221  out of   9312     2%  
  Number of IOs:                          14
  Number of bonded IOBs:                  14  out of    232     6%  
  Number of GCLKs:                         2  out of     24     8%  
@@ -366,9 +419,11 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
+send/INTERNAL_DAC_CS               | NONE(TREND)            | 13    |
 SYSTEM_CLOCK                       | BUFGP                  | 33    |
-counter/INTERNAL_CLOCK1            | BUFG                   | 50    |
+counter/INTERNAL_CLOCK1            | BUFG                   | 68    |
 -----------------------------------+------------------------+-------+
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 
 Asynchronous Control Signals Information:
 ----------------------------------------
@@ -378,14 +433,48 @@ Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 7.288ns (Maximum Frequency: 137.212MHz)
+   Minimum period: 9.042ns (Maximum Frequency: 110.595MHz)
    Minimum input arrival time before clock: 2.283ns
-   Maximum output required time after clock: 4.310ns
+   Maximum output required time after clock: 4.880ns
    Maximum combinational path delay: No path found
 
 Timing Detail:
 --------------
 All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'send/INTERNAL_DAC_CS'
+  Clock period: 8.020ns (frequency: 124.694MHz)
+  Total number of paths / destination ports: 686 / 14
+-------------------------------------------------------------------------
+Delay:               8.020ns (Levels of Logic = 13)
+  Source:            TREND (FF)
+  Destination:       TREND (FF)
+  Source Clock:      send/INTERNAL_DAC_CS rising
+  Destination Clock: send/INTERNAL_DAC_CS rising
+
+  Data Path: TREND to TREND
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDRE:C->Q            27   0.591   1.340  TREND (TREND)
+     LUT2:I1->O            1   0.704   0.000  Maddsub__old_BITS_1_lut<0> (Maddsub__old_BITS_1_lut<0>)
+     MUXCY:S->O            1   0.464   0.000  Maddsub__old_BITS_1_cy<0> (Maddsub__old_BITS_1_cy<0>)
+     MUXCY:CI->O           1   0.059   0.000  Maddsub__old_BITS_1_cy<1> (Maddsub__old_BITS_1_cy<1>)
+     MUXCY:CI->O           1   0.059   0.000  Maddsub__old_BITS_1_cy<2> (Maddsub__old_BITS_1_cy<2>)
+     MUXCY:CI->O           1   0.059   0.000  Maddsub__old_BITS_1_cy<3> (Maddsub__old_BITS_1_cy<3>)
+     MUXCY:CI->O           1   0.059   0.000  Maddsub__old_BITS_1_cy<4> (Maddsub__old_BITS_1_cy<4>)
+     MUXCY:CI->O           1   0.059   0.000  Maddsub__old_BITS_1_cy<5> (Maddsub__old_BITS_1_cy<5>)
+     MUXCY:CI->O           1   0.059   0.000  Maddsub__old_BITS_1_cy<6> (Maddsub__old_BITS_1_cy<6>)
+     MUXCY:CI->O           1   0.059   0.000  Maddsub__old_BITS_1_cy<7> (Maddsub__old_BITS_1_cy<7>)
+     MUXCY:CI->O           1   0.059   0.000  Maddsub__old_BITS_1_cy<8> (Maddsub__old_BITS_1_cy<8>)
+     XORCY:CI->O           2   0.804   0.451  Maddsub__old_BITS_1_xor<9> (_old_BITS_1<9>)
+     LUT4:I3->O            1   0.704   0.455  TREND_and000013 (TREND_and000013)
+     LUT4:I2->O            1   0.704   0.420  TREND_and000021 (TREND_and0000)
+     FDRE:R                    0.911          TREND
+    ----------------------------------------
+    Total                      8.020ns (5.354ns logic, 2.666ns route)
+                                       (66.8% logic, 33.2% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'SYSTEM_CLOCK'
@@ -419,10 +508,10 @@ Delay:               5.240ns (Levels of Logic = 9)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'counter/INTERNAL_CLOCK1'
-  Clock period: 7.288ns (frequency: 137.212MHz)
-  Total number of paths / destination ports: 1339 / 52
+  Clock period: 9.042ns (frequency: 110.595MHz)
+  Total number of paths / destination ports: 1423 / 70
 -------------------------------------------------------------------------
-Delay:               7.288ns (Levels of Logic = 7)
+Delay:               9.042ns (Levels of Logic = 8)
   Source:            send/CURRENT_BIT_0 (FF)
   Destination:       send/INTERNAL_SPI_MOSI (FF)
   Source Clock:      counter/INTERNAL_CLOCK1 rising
@@ -433,17 +522,18 @@ Delay:               7.288ns (Levels of Logic = 7)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDE:C->Q             11   0.591   1.108  send/CURRENT_BIT_0 (send/CURRENT_BIT_0)
-     LUT1:I0->O            1   0.704   0.000  send/Msub_COND_3_sub0000_cy<0>_rt (send/Msub_COND_3_sub0000_cy<0>_rt)
-     MUXCY:S->O            1   0.464   0.000  send/Msub_COND_3_sub0000_cy<0> (send/Msub_COND_3_sub0000_cy<0>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<1> (send/Msub_COND_3_sub0000_cy<1>)
-     XORCY:CI->O           3   0.804   0.610  send/Msub_COND_3_sub0000_xor<2> (send/COND_3_sub0000<2>)
-     LUT2:I1->O            1   0.704   0.424  send/INTERNAL_SPI_MOSI_mux000011_SW0 (N6)
-     LUT4_L:I3->LO         1   0.704   0.104  send/INTERNAL_SPI_MOSI_mux000026 (send/INTERNAL_SPI_MOSI_mux000026)
-     LUT4:I3->O            1   0.704   0.000  send/INTERNAL_SPI_MOSI_mux000076 (send/INTERNAL_SPI_MOSI_mux0000)
+     LUT1:I0->O            1   0.704   0.000  send/Msub_COND_4_sub0000_cy<0>_rt (send/Msub_COND_4_sub0000_cy<0>_rt)
+     XORCY:LI->O          11   0.527   0.968  send/Msub_COND_4_sub0000_xor<0> (send/COND_4_sub0000<0>)
+     LUT3:I2->O            1   0.704   0.499  send/Mmux__varindex0000_13 (send/Mmux__varindex0000_13)
+     LUT3:I1->O            1   0.704   0.000  send/COND_4_sub0000<2>1_G (N15)
+     MUXF5:I1->O           1   0.321   0.455  send/COND_4_sub0000<2>1 (send/COND_4_sub0000<2>2)
+     LUT3:I2->O            1   0.704   0.000  send/Mmux__varindex0000_2_f5_F (N12)
+     MUXF5:I0->O           1   0.321   0.424  send/Mmux__varindex0000_2_f5 (send/_varindex0000)
+     LUT4:I3->O            1   0.704   0.000  send/INTERNAL_SPI_MOSI_mux0000 (send/INTERNAL_SPI_MOSI_mux0000)
      FDE:D                     0.308          send/INTERNAL_SPI_MOSI
     ----------------------------------------
-    Total                      7.288ns (5.042ns logic, 2.246ns route)
-                                       (69.2% logic, 30.8% route)
+    Total                      9.042ns (5.588ns logic, 3.454ns route)
+                                       (61.8% logic, 38.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'counter/INTERNAL_CLOCK1'
@@ -459,7 +549,7 @@ Offset:              2.283ns (Levels of Logic = 1)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      IBUF:I->O             8   1.218   0.757  SPI_MISO_IBUF (SPI_MISO_IBUF)
-     FDE:D                     0.308          send/INTERNAL_CHECK_1
+     FDE:D                     0.308          send/INTERNAL_CHECK_0
     ----------------------------------------
     Total                      2.283ns (1.526ns logic, 0.757ns route)
                                        (66.8% logic, 33.2% route)
@@ -468,33 +558,33 @@ Offset:              2.283ns (Levels of Logic = 1)
 Timing constraint: Default OFFSET OUT AFTER for Clock 'counter/INTERNAL_CLOCK1'
   Total number of paths / destination ports: 12 / 12
 -------------------------------------------------------------------------
-Offset:              4.310ns (Levels of Logic = 1)
-  Source:            send/INTERNAL_DAC_CLR (FF)
-  Destination:       DAC_CLR (PAD)
+Offset:              4.880ns (Levels of Logic = 1)
+  Source:            send/INTERNAL_DAC_CS (FF)
+  Destination:       DAC_CS (PAD)
   Source Clock:      counter/INTERNAL_CLOCK1 rising
 
-  Data Path: send/INTERNAL_DAC_CLR to DAC_CLR
+  Data Path: send/INTERNAL_DAC_CS to DAC_CS
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDRS:C->Q             2   0.591   0.447  send/INTERNAL_DAC_CLR (send/INTERNAL_DAC_CLR)
-     OBUF:I->O                 3.272          DAC_CLR_OBUF (DAC_CLR)
+     FDS:C->Q             15   0.591   1.017  send/INTERNAL_DAC_CS (send/INTERNAL_DAC_CS)
+     OBUF:I->O                 3.272          DAC_CS_OBUF (DAC_CS)
     ----------------------------------------
-    Total                      4.310ns (3.863ns logic, 0.447ns route)
-                                       (89.6% logic, 10.4% route)
+    Total                      4.880ns (3.863ns logic, 1.017ns route)
+                                       (79.2% logic, 20.8% route)
 
 =========================================================================
 
 
-Total REAL time to Xst completion: 10.00 secs
-Total CPU time to Xst completion: 4.70 secs
+Total REAL time to Xst completion: 12.00 secs
+Total CPU time to Xst completion: 5.34 secs
  
 --> 
 
 
-Total memory usage is 519696 kilobytes
+Total memory usage is 521332 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :    2 (   0 filtered)
-Number of infos    :    2 (   0 filtered)
+Number of warnings :   31 (   0 filtered)
+Number of infos    :    4 (   0 filtered)
 

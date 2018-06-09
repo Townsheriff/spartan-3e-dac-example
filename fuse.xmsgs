@@ -5,5 +5,11 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
+<msg type="warning" file="HDLCompiler" num="35" delta="unknown" >"/home/osboxes/Documents/digital-analog-converter/main.v" Line 40: &lt;<arg fmt="%s" index="1">BITS</arg>&gt; is already implicitly declared earlier.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"/home/osboxes/Documents/digital-analog-converter/main.v" Line 22: Port <arg fmt="%s" index="1">STATE</arg> is not connected to this instance
+</msg>
+
 </messages>
 
