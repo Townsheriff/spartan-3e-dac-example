@@ -17,23 +17,23 @@ reg INTERNAL_SPI_MOSI = 0;
 reg INTERNAL_DAC_CS = 1;
 reg INTERNAL_DAC_CLR = 0;
 reg INTERNAL_SPI_SCK = 0;
-reg [7:0]INTERNAL_CHECK = 8'hFF;
+reg [7:0]INTERNAL_CHECK = 0;
 
 reg [4:0] INTERNAL_STATE = 1;
-integer BITS = 32'b10000000001100000000000000000001; 
+integer BITS = 32'b10000000001100111111111111110001; 
 //integer BITS = 32'b00000000000000000000000000000000; 
 integer CURRENT_BIT = 32;
 
 always @(posedge CLOCK) begin
 	if (RESET == 1) begin
 		INTERNAL_DAC_CS = 1;
-		INTERNAL_DAC_CLR = 1;
+		INTERNAL_DAC_CLR = 0;
 		INTERNAL_STATE = 1;
 	end else begin
 		case (INTERNAL_STATE)
 		1: begin
 			INTERNAL_DAC_CS = 1;
-			INTERNAL_DAC_CLR = 0;
+			INTERNAL_DAC_CLR = 1;
 			
 			INTERNAL_SPI_SCK = 0;
 			INTERNAL_SPI_MOSI = 0;
@@ -52,16 +52,16 @@ always @(posedge CLOCK) begin
 			INTERNAL_SPI_MOSI = BITS[CURRENT_BIT - 1];
 			CURRENT_BIT = CURRENT_BIT - 1;
 			INTERNAL_STATE = 4;
-			
-			if (CURRENT_BIT < 24 && CURRENT_BIT >= 16) begin
-				INTERNAL_CHECK[CURRENT_BIT - 16] = SPI_MISO;
-			end
 		end
 		4: begin			
 			if (CURRENT_BIT > 0) begin
 				INTERNAL_STATE = 3;
 			end else begin
 				INTERNAL_STATE = 5;
+			end
+			
+			if (CURRENT_BIT < 24 && CURRENT_BIT >= 16) begin
+				INTERNAL_CHECK[CURRENT_BIT - 16] = SPI_MISO;
 			end
 			
 			INTERNAL_SPI_SCK = 1;

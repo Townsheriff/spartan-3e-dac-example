@@ -5,14 +5,14 @@ Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.05 secs
+Total CPU time to Xst completion: 0.06 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.05 secs
+Total CPU time to Xst completion: 0.06 secs
  
 --> 
 Reading design: main.prj
@@ -160,7 +160,7 @@ Unit <seconds_clock> synthesized.
 
 Synthesizing Unit <dac_adapter>.
     Related source file is "dac_adapter.v".
-WARNING:Xst:1870 - Variable <BITS> is used but never assigned. Tied to value 10000000001100000000000000000001.
+WARNING:Xst:1870 - Variable <BITS> is used but never assigned. Tied to value 10000000001100111111111111110001.
     Found finite state machine <FSM_0> for signal <INTERNAL_STATE>.
     -----------------------------------------------------------------------
     | States             | 6                                              |
@@ -179,13 +179,13 @@ WARNING:Xst:1870 - Variable <BITS> is used but never assigned. Tied to value 100
     Found 32-bit subtractor for signal <COND_3$sub0000> created at line 52.
     Found 32-bit register for signal <CURRENT_BIT>.
     Found 8-bit register for signal <INTERNAL_CHECK>.
-    Found 33-bit comparator greatequal for signal <INTERNAL_CHECK_0$cmp_ge0000> created at line 56.
-    Found 33-bit comparator less for signal <INTERNAL_CHECK_0$cmp_lt0000> created at line 56.
+    Found 33-bit comparator greatequal for signal <INTERNAL_CHECK_0$cmp_ge0000> created at line 63.
+    Found 33-bit comparator less for signal <INTERNAL_CHECK_0$cmp_lt0000> created at line 63.
     Found 1-bit register for signal <INTERNAL_DAC_CLR>.
     Found 1-bit register for signal <INTERNAL_DAC_CS>.
     Found 1-bit register for signal <INTERNAL_SPI_MOSI>.
     Found 1-bit register for signal <INTERNAL_SPI_SCK>.
-    Found 33-bit comparator greater for signal <INTERNAL_STATE$cmp_gt0000> created at line 61.
+    Found 33-bit comparator greater for signal <INTERNAL_STATE$cmp_gt0000> created at line 57.
     Summary:
 	inferred   1 Finite State Machine(s).
 	inferred   1 ROM(s).
@@ -306,23 +306,25 @@ Design Statistics
 # IOs                              : 14
 
 Cell Usage :
-# BELS                             : 328
+# BELS                             : 322
 #      GND                         : 1
 #      INV                         : 36
 #      LUT1                        : 33
-#      LUT2                        : 7
-#      LUT2_L                      : 1
-#      LUT3                        : 4
-#      LUT4                        : 75
-#      LUT4_L                      : 9
+#      LUT2                        : 6
+#      LUT2_L                      : 2
+#      LUT3                        : 3
+#      LUT3_D                      : 1
+#      LUT4                        : 76
+#      LUT4_D                      : 1
+#      LUT4_L                      : 1
 #      MUXCY                       : 97
 #      VCC                         : 1
 #      XORCY                       : 64
 # FlipFlops/Latches                : 83
 #      FDE                         : 43
 #      FDR                         : 36
-#      FDRS                        : 1
-#      FDS                         : 3
+#      FDRS                        : 2
+#      FDS                         : 2
 # Clock Buffers                    : 2
 #      BUFG                        : 1
 #      BUFGP                       : 1
@@ -336,9 +338,9 @@ Device utilization summary:
 
 Selected Device : 3s500efg320-4 
 
- Number of Slices:                       94  out of   4656     2%  
+ Number of Slices:                       88  out of   4656     1%  
  Number of Slice Flip Flops:             83  out of   9312     0%  
- Number of 4 input LUTs:                165  out of   9312     1%  
+ Number of 4 input LUTs:                159  out of   9312     1%  
  Number of IOs:                          14
  Number of bonded IOBs:                  14  out of    232     6%  
  Number of GCLKs:                         2  out of     24     8%  
@@ -376,7 +378,7 @@ Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 9.805ns (Maximum Frequency: 101.989MHz)
+   Minimum period: 7.288ns (Maximum Frequency: 137.212MHz)
    Minimum input arrival time before clock: 2.283ns
    Maximum output required time after clock: 4.310ns
    Maximum combinational path delay: No path found
@@ -391,16 +393,16 @@ Timing constraint: Default period analysis for Clock 'SYSTEM_CLOCK'
   Total number of paths / destination ports: 1585 / 66
 -------------------------------------------------------------------------
 Delay:               5.240ns (Levels of Logic = 9)
-  Source:            counter/CLOCK_COUNTER_7 (FF)
+  Source:            counter/CLOCK_COUNTER_8 (FF)
   Destination:       counter/CLOCK_COUNTER_0 (FF)
   Source Clock:      SYSTEM_CLOCK rising
   Destination Clock: SYSTEM_CLOCK rising
 
-  Data Path: counter/CLOCK_COUNTER_7 to counter/CLOCK_COUNTER_0
+  Data Path: counter/CLOCK_COUNTER_8 to counter/CLOCK_COUNTER_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDR:C->Q              2   0.591   0.622  counter/CLOCK_COUNTER_7 (counter/CLOCK_COUNTER_7)
+     FDR:C->Q              2   0.591   0.622  counter/CLOCK_COUNTER_8 (counter/CLOCK_COUNTER_8)
      LUT4:I0->O            1   0.704   0.000  counter/CLOCK_COUNTER_cmp_eq0000_wg_lut<0> (counter/CLOCK_COUNTER_cmp_eq0000_wg_lut<0>)
      MUXCY:S->O            1   0.464   0.000  counter/CLOCK_COUNTER_cmp_eq0000_wg_cy<0> (counter/CLOCK_COUNTER_cmp_eq0000_wg_cy<0>)
      MUXCY:CI->O           1   0.059   0.000  counter/CLOCK_COUNTER_cmp_eq0000_wg_cy<1> (counter/CLOCK_COUNTER_cmp_eq0000_wg_cy<1>)
@@ -417,61 +419,31 @@ Delay:               5.240ns (Levels of Logic = 9)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'counter/INTERNAL_CLOCK1'
-  Clock period: 9.805ns (frequency: 101.989MHz)
-  Total number of paths / destination ports: 9776 / 51
+  Clock period: 7.288ns (frequency: 137.212MHz)
+  Total number of paths / destination ports: 1339 / 52
 -------------------------------------------------------------------------
-Delay:               9.805ns (Levels of Logic = 37)
+Delay:               7.288ns (Levels of Logic = 7)
   Source:            send/CURRENT_BIT_0 (FF)
-  Destination:       send/INTERNAL_CHECK_7 (FF)
+  Destination:       send/INTERNAL_SPI_MOSI (FF)
   Source Clock:      counter/INTERNAL_CLOCK1 rising
   Destination Clock: counter/INTERNAL_CLOCK1 rising
 
-  Data Path: send/CURRENT_BIT_0 to send/INTERNAL_CHECK_7
+  Data Path: send/CURRENT_BIT_0 to send/INTERNAL_SPI_MOSI
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q              3   0.591   0.706  send/CURRENT_BIT_0 (send/CURRENT_BIT_0)
+     FDE:C->Q             11   0.591   1.108  send/CURRENT_BIT_0 (send/CURRENT_BIT_0)
      LUT1:I0->O            1   0.704   0.000  send/Msub_COND_3_sub0000_cy<0>_rt (send/Msub_COND_3_sub0000_cy<0>_rt)
      MUXCY:S->O            1   0.464   0.000  send/Msub_COND_3_sub0000_cy<0> (send/Msub_COND_3_sub0000_cy<0>)
      MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<1> (send/Msub_COND_3_sub0000_cy<1>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<2> (send/Msub_COND_3_sub0000_cy<2>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<3> (send/Msub_COND_3_sub0000_cy<3>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<4> (send/Msub_COND_3_sub0000_cy<4>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<5> (send/Msub_COND_3_sub0000_cy<5>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<6> (send/Msub_COND_3_sub0000_cy<6>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<7> (send/Msub_COND_3_sub0000_cy<7>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<8> (send/Msub_COND_3_sub0000_cy<8>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<9> (send/Msub_COND_3_sub0000_cy<9>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<10> (send/Msub_COND_3_sub0000_cy<10>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<11> (send/Msub_COND_3_sub0000_cy<11>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<12> (send/Msub_COND_3_sub0000_cy<12>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<13> (send/Msub_COND_3_sub0000_cy<13>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<14> (send/Msub_COND_3_sub0000_cy<14>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<15> (send/Msub_COND_3_sub0000_cy<15>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<16> (send/Msub_COND_3_sub0000_cy<16>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<17> (send/Msub_COND_3_sub0000_cy<17>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<18> (send/Msub_COND_3_sub0000_cy<18>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<19> (send/Msub_COND_3_sub0000_cy<19>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<20> (send/Msub_COND_3_sub0000_cy<20>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<21> (send/Msub_COND_3_sub0000_cy<21>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<22> (send/Msub_COND_3_sub0000_cy<22>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<23> (send/Msub_COND_3_sub0000_cy<23>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<24> (send/Msub_COND_3_sub0000_cy<24>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<25> (send/Msub_COND_3_sub0000_cy<25>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<26> (send/Msub_COND_3_sub0000_cy<26>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<27> (send/Msub_COND_3_sub0000_cy<27>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<28> (send/Msub_COND_3_sub0000_cy<28>)
-     MUXCY:CI->O           1   0.059   0.000  send/Msub_COND_3_sub0000_cy<29> (send/Msub_COND_3_sub0000_cy<29>)
-     MUXCY:CI->O           0   0.059   0.000  send/Msub_COND_3_sub0000_cy<30> (send/Msub_COND_3_sub0000_cy<30>)
-     XORCY:CI->O           5   0.804   0.668  send/Msub_COND_3_sub0000_xor<31> (send/COND_3_sub0000<31>)
-     LUT3:I2->O            1   0.704   0.000  send/Mcompar_INTERNAL_CHECK_0_cmp_ge0000_lut<7>1 (send/Mcompar_INTERNAL_CHECK_0_cmp_ge0000_lut<7>1)
-     MUXCY:S->O            1   0.464   0.000  send/Mcompar_INTERNAL_CHECK_0_cmp_ge0000_cy<7>_0 (send/Mcompar_INTERNAL_CHECK_0_cmp_ge0000_cy<7>1)
-     MUXCY:CI->O           8   0.459   0.792  send/Mcompar_INTERNAL_CHECK_0_cmp_ge0000_cy<8>_0 (send/Mcompar_INTERNAL_CHECK_0_cmp_ge0000_cy<8>)
-     LUT4:I2->O            1   0.704   0.420  send/INTERNAL_CHECK_7_not00011 (send/INTERNAL_CHECK_7_not0001)
-     FDE:CE                    0.555          send/INTERNAL_CHECK_7
+     XORCY:CI->O           3   0.804   0.610  send/Msub_COND_3_sub0000_xor<2> (send/COND_3_sub0000<2>)
+     LUT2:I1->O            1   0.704   0.424  send/INTERNAL_SPI_MOSI_mux000011_SW0 (N6)
+     LUT4_L:I3->LO         1   0.704   0.104  send/INTERNAL_SPI_MOSI_mux000026 (send/INTERNAL_SPI_MOSI_mux000026)
+     LUT4:I3->O            1   0.704   0.000  send/INTERNAL_SPI_MOSI_mux000076 (send/INTERNAL_SPI_MOSI_mux0000)
+     FDE:D                     0.308          send/INTERNAL_SPI_MOSI
     ----------------------------------------
-    Total                      9.805ns (7.219ns logic, 2.586ns route)
-                                       (73.6% logic, 26.4% route)
+    Total                      7.288ns (5.042ns logic, 2.246ns route)
+                                       (69.2% logic, 30.8% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'counter/INTERNAL_CLOCK1'
@@ -505,7 +477,7 @@ Offset:              4.310ns (Levels of Logic = 1)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDS:C->Q              2   0.591   0.447  send/INTERNAL_DAC_CLR (send/INTERNAL_DAC_CLR)
+     FDRS:C->Q             2   0.591   0.447  send/INTERNAL_DAC_CLR (send/INTERNAL_DAC_CLR)
      OBUF:I->O                 3.272          DAC_CLR_OBUF (DAC_CLR)
     ----------------------------------------
     Total                      4.310ns (3.863ns logic, 0.447ns route)
@@ -514,13 +486,13 @@ Offset:              4.310ns (Levels of Logic = 1)
 =========================================================================
 
 
-Total REAL time to Xst completion: 9.00 secs
-Total CPU time to Xst completion: 4.26 secs
+Total REAL time to Xst completion: 10.00 secs
+Total CPU time to Xst completion: 4.70 secs
  
 --> 
 
 
-Total memory usage is 519632 kilobytes
+Total memory usage is 519696 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    2 (   0 filtered)

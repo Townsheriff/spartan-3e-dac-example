@@ -11,10 +11,3 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-# run 1.00us
-# run 1.00us
-# run 1.00us
-# run all
-Stopped at time : 36458725 ns : File "/home/osboxes/Documents/digital-analog-converter/dac_adapter.v" Line 54
-# run 1.00us
-# exit 0

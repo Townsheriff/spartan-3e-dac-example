@@ -16,6 +16,7 @@ module dac_adapter_test;
 	wire [4:0]STATE;
 	wire [31:0]WRITE_BIT;
 
+	integer COUNTER = 0;
 
 	dac_adapter uut (
 		.CLOCK(CLOCK),
@@ -39,6 +40,15 @@ module dac_adapter_test;
 		CLOCK = 0;
 	end
       
-	always #5 CLOCK = ~CLOCK;
+	always begin
+		#5 CLOCK = ~CLOCK;
+		
+		if (COUNTER == 11) begin
+			SPI_MISO <= !SPI_MISO;
+			COUNTER = 0;
+		end
+		
+		COUNTER = COUNTER + 1;
+	end
 endmodule
 

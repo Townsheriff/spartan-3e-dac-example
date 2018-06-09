@@ -2,28 +2,9 @@ Command line:
    dac_adapter_test_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  46247
+     -socket  35713
 
-Sat Jun  9 14:43:00 2018
+Sat Jun  9 17:45:30 2018
 
 
  Elaboration Time: 0.01 sec
-
- Current Memory Usage: 200.675 Meg
-
- Total Signals          : 30
- Total Nets             : 65
- Total Signal Drivers   : 15
- Total Blocks           : 3
- Total Primitive Blocks : 2
- Total Processes        : 19
- Total Traceable Variables  : 29
- Total Scalar Nets and Variables : 229
-Total Line Count : 70
-
- Total Simulation Time: 5.27 sec
-
- Current Memory Usage: 276.177 Meg
-
-Sat Jun  9 15:18:53 2018
-
